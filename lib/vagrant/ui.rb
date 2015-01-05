@@ -193,7 +193,7 @@ module Vagrant
 
       # This method handles actually outputting a message of a given type
       # to the console.
-      def say(type, message, **opts)
+      def say(type, message, opts = {})
         defaults = { new_line: true, prefix: true }
         opts     = defaults.merge(@opts).merge(opts)
 
@@ -214,13 +214,13 @@ module Vagrant
         # do this.
         Thread.new do
           @lock.synchronize do
-            safe_puts(format_message(type, message, **opts),
+            safe_puts(format_message(type, message, opts),
                       io: channel, printer: printer)
           end
         end.join
       end
 
-      def format_message(type, message, **opts)
+      def format_message(type, message, opts = {})
         message
       end
     end
@@ -247,13 +247,14 @@ module Vagrant
       # to `say`.
       [:ask, :detail, :info, :warn, :error, :output, :success].each do |method|
         class_eval <<-CODE
-          def #{method}(message, *args, **opts)
+          def #{method}(message, *args)
+            opts = args.last.is_a?(Hash) ? args.pop : {}
             super(message)
             if !@ui.opts.key?(:bold) && !opts.key?(:bold)
               opts[:bold] = #{method.inspect} != :detail && \
                 #{method.inspect} != :ask
             end
-            @ui.#{method}(format_message(#{method.inspect}, message, **opts), *args, **opts)
+            @ui.#{method}(format_message(#{method.inspect}, message, opts), *args, opts)
           end
         CODE
       end
@@ -280,7 +281,7 @@ module Vagrant
         @ui.opts
       end
 
-      def format_message(type, message, **opts)
+      def format_message(type, message, opts = {})
         opts = self.opts.merge(opts)
 
         prefix = ""
@@ -324,7 +325,7 @@ module Vagrant
       }
 
       # This is called by `say` to format the message for output.
-      def format_message(type, message, **opts)
+      def format_message(type, message, opts = {})
         # Get the format of the message before adding color.
         message = super
 
