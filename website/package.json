@@ -6,7 +6,7 @@
   "dependencies": {
     "@hashicorp/nextjs-scripts": "19.0.3",
     "@hashicorp/react-button": "2.2.1",
-    "@hashicorp/react-code-block": "1.2.7",
+    "@hashicorp/react-code-block": "1.2.9",
     "@hashicorp/react-content": "4.0.0",
     "@hashicorp/react-docs-page": "4.0.0",
     "@hashicorp/react-docs-sidenav": "3.2.5",
