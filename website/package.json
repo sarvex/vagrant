@@ -13,7 +13,7 @@
     "@hashicorp/react-global-styles": "4.4.0",
     "@hashicorp/react-hashi-stack-menu": "^1.0.7",
     "@hashicorp/react-head": "1.1.1",
-    "@hashicorp/react-image": "2.0.1",
+    "@hashicorp/react-image": "2.0.4",
     "@hashicorp/react-product-downloader": "4.0.2",
     "@hashicorp/react-search": "^2.1.0",
     "@hashicorp/react-section-header": "5.0.5",
